@@ -16,6 +16,9 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
 
     const bls = b.addModule("bls", .{.root_source_file = b.path("src/bls.zig")});
+    bls.addObjectFile(b.path("bls/lib/libbls384_256.a"));
+    bls.addIncludePath(b.path("bls/include/"));
+    bls.addIncludePath(b.path("bls/mcl/include/"));
     const lib = b.addStaticLibrary(.{
         .name = "bls-eth-zig",
         // In this case the main source file is merely a path, however, in more
@@ -33,10 +36,10 @@ pub fn build(b: *std.Build) void {
     // location when the user invokes the "install" step (the default step when
     // running `zig build`).
     b.installArtifact(lib);
-    bls.addObjectFile(b.path("bls/lib/libbls384_256.a"));
-    bls.addIncludePath(b.path("bls/include/"));
-    bls.addIncludePath(b.path("bls/mcl/include/"));
-    
+    bls.addLibraryPath(b.path("bls/lib/"));
+    bls.linkLibrary(lib);
+
+
     // Creates a step for unit testing. This only builds the test executable
     // but does not run it.
     const lib_unit_tests = b.addTest(.{
