@@ -19,25 +19,24 @@ pub fn build(b: *std.Build) void {
     bls.addObjectFile(b.path("bls/lib/libbls384_256.a"));
     bls.addIncludePath(b.path("bls/include/"));
     bls.addIncludePath(b.path("bls/mcl/include/"));
-    const lib = b.addStaticLibrary(.{
-        .name = "bls-eth-zig",
-        // In this case the main source file is merely a path, however, in more
-        // complicated build scripts, this could be a generated file.
-        .root_source_file = b.path("src/bls.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
+    // const lib = b.addStaticLibrary(.{
+    //     .name = "bls-eth-zig",
+    //     // In this case the main source file is merely a path, however, in more
+    //     // complicated build scripts, this could be a generated file.
+    //     .root_source_file = b.path("src/bls.zig"),
+    //     .target = target,
+    //     .optimize = optimize,
+    // });
 
-    lib.linkLibC();
-    lib.addLibraryPath(b.path("bls/lib/"));
-    lib.linkSystemLibrary("stdc++");
-    lib.linkSystemLibrary("bls384_256");
+    // lib.linkLibC();
+    // lib.addLibraryPath(b.path("bls/lib/"));
+    // lib.linkSystemLibrary("stdc++");
     // This declares intent for the library to be installed into the standard
     // location when the user invokes the "install" step (the default step when
     // running `zig build`).
-    b.installArtifact(lib);
-    bls.addLibraryPath(b.path("bls/lib/"));
-    bls.linkLibrary(lib);
+    // b.installArtifact(lib);
+    // bls.addLibraryPath(b.path("bls/lib/"));
+    // bls.linkLibrary(lib);
 
 
     // Creates a step for unit testing. This only builds the test executable
@@ -51,7 +50,7 @@ pub fn build(b: *std.Build) void {
     lib_unit_tests.root_module.addImport("bls",bls);
     lib_unit_tests.addIncludePath(b.path("bls/include/"));
     lib_unit_tests.addIncludePath(b.path("bls/mcl/include/"));
-    lib_unit_tests.addObjectFile(b.path("bls/lib/libbls384_256.a"));
+    // lib_unit_tests.addObjectFile(b.path("bls/lib/libbls384_256.a"));
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 
     // Similar to creating the run step earlier, this exposes a `test` step to

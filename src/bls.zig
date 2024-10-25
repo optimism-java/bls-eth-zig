@@ -151,3 +151,8 @@ pub fn areAllMessageDifferent(msgVec: []const Message) bool {
     }
     return true;
 }
+
+test "test init" {
+    const res = init();
+    try std.testing.expect(res);
+}
