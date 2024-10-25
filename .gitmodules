@@ -1,0 +1,3 @@
+[submodule "bls"]
+	path = bls
+	url = git@github.com:herumi/bls.git
