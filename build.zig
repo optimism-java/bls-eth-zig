@@ -16,9 +16,9 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
 
     const bls = b.addModule("bls", .{.root_source_file = b.path("src/bls.zig")});
-    bls.addObjectFile(b.path("bls/lib/libbls384_256.a"));
-    bls.addIncludePath(b.path("bls/include/"));
-    bls.addIncludePath(b.path("bls/mcl/include/"));
+    bls.addObjectFile(b.path("src/bls/lib/libbls384_256.a"));
+    bls.addIncludePath(b.path("src/bls/include/"));
+    bls.addIncludePath(b.path("src/bls/mcl/include/"));
     // const lib = b.addStaticLibrary(.{
     //     .name = "bls-eth-zig",
     //     // In this case the main source file is merely a path, however, in more
@@ -48,8 +48,8 @@ pub fn build(b: *std.Build) void {
     });
 
     lib_unit_tests.root_module.addImport("bls",bls);
-    lib_unit_tests.addIncludePath(b.path("bls/include/"));
-    lib_unit_tests.addIncludePath(b.path("bls/mcl/include/"));
+    lib_unit_tests.addIncludePath(b.path("src/bls/include/"));
+    lib_unit_tests.addIncludePath(b.path("src/bls/mcl/include/"));
     // lib_unit_tests.addObjectFile(b.path("bls/lib/libbls384_256.a"));
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 
