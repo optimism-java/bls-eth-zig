@@ -33,9 +33,9 @@ pub fn build(b: *std.Build) void {
     // location when the user invokes the "install" step (the default step when
     // running `zig build`).
     b.installArtifact(lib);
-    // bls.addObjectFile(b.path("bls/lib/libbls384_256.a"));
-    // bls.addIncludePath(b.path("bls/include/"));
-    // bls.addIncludePath(b.path("bls/mcl/include/"));
+    bls.addObjectFile(b.path("bls/lib/libbls384_256.a"));
+    bls.addIncludePath(b.path("bls/include/"));
+    bls.addIncludePath(b.path("bls/mcl/include/"));
     
     // Creates a step for unit testing. This only builds the test executable
     // but does not run it.
